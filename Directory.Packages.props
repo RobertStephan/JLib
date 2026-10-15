@@ -4,7 +4,7 @@
       <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="AutoMapper" Version="16.*" />
+    <PackageVersion Include="MagicMapper" Version="14.0.1" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.*" />
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.*" />
     <PackageVersion Include="BenchmarkDotNet.TestAdapter" Version="0.*" />

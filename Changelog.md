@@ -14,11 +14,16 @@
 - renamed JLib.ValueTypes.Mapping -> JLib.ValueTypes.AutoMapper
 - moved valueType json converters to JLib.ValueTypes package
 
+### JLib.AutoMapper / JLib.ValueTypes.AutoMapper / JLib.DataProvider.AutoMapper
+- replaced the `AutoMapper` package (16.x, commercially licensed since v15) with [`MagicMapper`](https://www.nuget.org/packages/MagicMapper) 14.0.1, an MIT licensed, binary compatible fork of AutoMapper 14. Assembly and namespace remain `AutoMapper`, so `using AutoMapper;` and all `Profile`/`IMapper` usages stay unchanged.
+- consumers must remove any direct `AutoMapper` package reference (and reference `MagicMapper` instead, if needed). Referencing both causes duplicate `AutoMapper` type conflicts.
+- the API is now the one of AutoMapper 14: the `MapperConfiguration(Action<IMapperConfigurationExpression>, ILoggerFactory)` constructor and license key configuration of v15+ are not available. Use `new MapperConfiguration(cfg => ...)` instead.
+
 ### JLib.DataGeneration / JLib.DataGeneration.Abstractions
 - removed the AutoMapper dependency. `TestingIdGenerator` no longer takes an `IMapper` constructor parameter and creates typed value-type ids via `ValueType.Create` instead of AutoMapper. Consumers no longer need to call `.AddAutoMapper(...)` for id generation.
 
 ### JLib.DependencyInjection
-- removed the transitive `JLib.AutoMapper` project reference (it was unused by the package itself). Projects that obtained AutoMapper transitively via `JLib.DependencyInjection` must now reference `JLib.AutoMapper` and/or the `AutoMapper` package explicitly.
+- removed the transitive `JLib.AutoMapper` project reference (it was unused by the package itself). Projects that obtained AutoMapper transitively via `JLib.DependencyInjection` must now reference `JLib.AutoMapper` and/or the `MagicMapper` package explicitly.
 
 ### JLib.Configuration
 - removed the multi-environment config section feature. Config sections are now loaded directly under their `ConfigSectionNameAttribute` key; the `Environment` key and the nested per-environment subsections are no longer evaluated by `AddAllConfigSections` and `GetSection`/`GetSectionObject`. The `ConfigurationSections` class was removed. Use the standard .NET configuration providers and layer environment specific config section files (e.g. `appsettings.{Environment}.json`) when building the `IConfiguration` instead.
